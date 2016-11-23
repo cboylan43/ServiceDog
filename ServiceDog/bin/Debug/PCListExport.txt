@@ -1,0 +1,18 @@
+*** New Data Loaded ***,7/16/2014 12:00:00 AM
+2ua94119xg-w7,workspace,Running
+CNU4179BS1-W7,Not Found,Unknown
+CNU4179B8Z-W7,Not Found,Unknown
+CNU4179B8J-W7,Not Found,Unknown
+CNU412CN9R-X7,Not Found,Unknown
+IPaddress=,2ua94119xg-w7,fe80::117a:f444:44ca:7d63
+192.168.221.1
+fe80::b19e:44fb:2474:b770
+192.168.170.1
+fe80::dd59:e124:dc76:1715
+155.118.62.60
+PC = 2ua94119xg-w7
+
+IPaddress=,CNU4179BS1-W7,The RPC server is unavailable. 
+IPaddress=,CNU4179B8Z-W7,The RPC server is unavailable. 
+IPaddress=,CNU4179B8J-W7,The RPC server is unavailable. 
+IPaddress=,CNU412CN9R-X7,The RPC server is unavailable. 

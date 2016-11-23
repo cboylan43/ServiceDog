@@ -1,0 +1,151 @@
+﻿Imports System.IO
+
+Public Class Form1
+    Public strName As String
+    Public strPass As String
+    Public arlist As New ArrayList
+    Public arresults As New ArrayList
+    Public art(4, 2) As String
+    'Array - CompName,Service,Status
+
+
+    Private Sub cmdServiceList_Click() Handles cmdServiceList.Click
+        Dim strtemp
+        Dim objWMIService, objService, strServiceList
+        Dim colListOfServices
+        Dim objLocator
+
+        'finds selected item
+        strtemp = txtCompName.Text
+        strServiceList = strtemp + " ----Services: "
+        If (strName = "") Then
+            strName = InputBox("Enter name as follows domain\intranet name ", "Login Name", "cn\boylan.cj")
+            strPass = InputBox("Enter intranet password ", "Password")
+        End If
+        'connect to WMI on server listed in strtemp
+        objLocator = CreateObject("WbemScripting.SwbemLocator")
+        objWMIService = objLocator.ConnectServer(strtemp, "root\cimv2", strName, strPass)
+
+        colListOfServices = objWMIService.ExecQuery("Select * from Win32_Service ")
+        'Determine critiea for listing
+        For Each objService In colListOfServices
+            If (objService.name.ToString.StartsWith("w")) Then
+                strServiceList = strServiceList + ":" + objService.name.ToString + ":" + objService.state.ToString + vbCrLf
+            End If
+
+        Next
+
+        MsgBox(strServiceList)
+    End Sub
+
+    Private Sub cmdStartService_Click(sender As System.Object, e As System.EventArgs) Handles cmdStartService.Click
+        Dim strtemp
+        Dim objLocator, objWMIService
+        Dim objServiceStop, intReturn
+
+        'get Server name for WMI connection
+        strtemp = txtCompName.Text
+
+        If (strName = "") Then
+            strName = InputBox("Enter name as follows domain\intranet name ", "Login Name", "cn\boylan.cj")
+            strPass = InputBox("Enter intranet password ", "Password")
+        End If
+        'connect to WMI on server listed in strtemp
+        objLocator = CreateObject("WbemScripting.SwbemLocator")
+        objWMIService = objLocator.ConnectServer(strtemp, "root\cimv2", strName, strPass)
+        'set object for stop of service
+        strtemp = "Win32_Service.Name='" & "workspace" & "'"
+        objServiceStop = objWMIService.Get(strtemp)
+        intReturn = objServiceStop.StartService()
+        MsgBox(intReturn)
+
+    End Sub
+
+    Private Sub cmdReadlist_Click(sender As System.Object, e As System.EventArgs) Handles cmdReadList.Click
+        Dim strSrvlist As String    ' this is the file with the PCs listed
+        Dim strPath As String       ' This is the path of teh running application
+        Dim inttemp As Int16 = 0
+
+        Dim strtemp As String
+        strPath = Application.StartupPath
+        strSrvlist = strPath & "\PCList.SRV"
+        'MsgBox(strSrvlist)
+        'Sets up listing of servers from text file
+
+
+        If File.Exists(strSrvlist) Then
+            Dim sr As StreamReader = File.OpenText(strSrvlist)
+
+            Do While sr.Peek() > 0
+                strtemp = sr.ReadLine()
+                'MsgBox(strtemp & " = " & inttemp)
+                arlist.Add(strtemp)
+                'MsgBox(arlist(inttemp))
+                inttemp = inttemp + 1
+
+            Loop
+        Else
+            MsgBox("File with PC list does not exist, please make sure list is in same dir as exe and is called PCList.SRV")
+        End If
+        MsgBox(inttemp.ToString & " PCs have been loaded")
+    End Sub
+    Private Sub cmdCredSet_Click() Handles cmdCredSet.Click
+        ' pulls data from text boxes so you don't have to keep entering it in
+        strName = txtName.Text
+        strPass = txtPass.Text
+
+
+    End Sub
+    Private Sub cmdreport_Click() Handles cmdReport.Click
+        ' read the list of PCs and report their status
+        Dim strtemp = ""
+        Dim objWMIService, objService
+        Dim strServiceList As String = ""
+        Dim colListOfServices
+        Dim objLocator
+        Dim inttmp As Integer = 0
+        objLocator = CreateObject("WbemScripting.SwbemLocator")
+
+        ReDim art(arlist.Count, 2)
+        Do While inttmp < arlist.Count
+            strtemp = arlist(inttmp).ToString
+            Try
+                objWMIService = objLocator.ConnectServer(strtemp, "root\cimv2", strName, strPass)
+                colListOfServices = objWMIService.ExecQuery("Select * from Win32_Service ")
+                'Determine critiea for listing
+                For Each objService In colListOfServices
+                    If (objService.name.ToString.Equals("workspace")) Then
+                        'strServiceList = strServiceList + ":" + objService.name.ToString + ":" + objService.state.ToString + vbCrLf
+                        arresults.Add(strtemp & "," & objService.name.ToString & "," & objService.state.ToString)
+                        art.SetValue(strtemp, inttmp, 0)
+                        art.SetValue(objService.name.ToString, inttmp, 1)
+                        art.SetValue(objService.state.ToString, inttmp, 2)
+                    End If
+                   
+                Next
+            Catch ex As Exception
+                'strServiceList = strServiceList + ":" + arlist(inttmp).ToString + ": not able to connect" + vbCrLf
+                arresults.Add(strtemp & ",Not Found,Unknown")
+                art.SetValue(strtemp, inttmp, 0)
+                art.SetValue("Not Found", inttmp, 1)
+                art.SetValue("Unknown", inttmp, 2)
+            End Try
+            
+            inttmp = inttmp + 1
+            txtProcessed.Text = inttmp
+
+        Loop
+        'MsgBox(strServiceList)
+        'inttmp = 0
+        'Do While inttmp < arresults.Count
+        '    MsgBox(arresults(inttmp).ToString)
+        '    MsgBox(art(inttmp, 0).ToString & art(inttmp, 1).ToString & art(inttmp, 2).ToString)
+        '    inttmp = inttmp + 1
+        'Loop
+
+
+    End Sub
+
+    
+    
+End Class
