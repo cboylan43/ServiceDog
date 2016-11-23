@@ -12,3 +12,13 @@ C:\Users\boylan.cj\Documents\Visual Studio 2010\Projects\ServiceDog\ServiceDog\o
 L:\Chris\Code\ServiceDog\ServiceDog\ServiceDog\obj\x86\Debug\ServiceDog.exe
 L:\Chris\Code\ServiceDog\ServiceDog\ServiceDog\obj\x86\Debug\ServiceDog.xml
 L:\Chris\Code\ServiceDog\ServiceDog\ServiceDog\obj\x86\Debug\ServiceDog.pdb
+C:\Users\boylan.cj\Documents\GitHub\ServiceDog\ServiceDog\obj\x86\Debug\ServiceDog.exe
+C:\Users\boylan.cj\Documents\GitHub\ServiceDog\ServiceDog\obj\x86\Debug\ServiceDog.xml
+C:\Users\boylan.cj\Documents\GitHub\ServiceDog\ServiceDog\obj\x86\Debug\ServiceDog.pdb
+C:\Users\boylan.cj\Documents\GitHub\ServiceDog\ServiceDog\bin\Debug\ServiceDog.exe
+C:\Users\boylan.cj\Documents\GitHub\ServiceDog\ServiceDog\bin\Debug\ServiceDog.pdb
+C:\Users\boylan.cj\Documents\GitHub\ServiceDog\ServiceDog\bin\Debug\ServiceDog.xml
+C:\Users\boylan.cj\Documents\GitHub\ServiceDog\ServiceDog\obj\x86\Debug\ServiceDog.vbprojResolveAssemblyReference.cache
+C:\Users\boylan.cj\Documents\GitHub\ServiceDog\ServiceDog\obj\x86\Debug\ServiceDog.Form1.resources
+C:\Users\boylan.cj\Documents\GitHub\ServiceDog\ServiceDog\obj\x86\Debug\ServiceDog.Resources.resources
+C:\Users\boylan.cj\Documents\GitHub\ServiceDog\ServiceDog\obj\x86\Debug\ServiceDog.vbproj.GenerateResource.Cache
